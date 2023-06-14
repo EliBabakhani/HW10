@@ -5,40 +5,36 @@ count = 0
 
 
 def get_res(url: str):
-    global count
     res = requests.get(url)
     if res.status_code == 200:
         data = res.json()  # create a list of json obj
         return data
     else:
-        return []
+        return None
 
 
 def process(data: json):
-    global count
-    count = 0
+    posts = []
     for record in data:
-        count += 1
-    print(count)
+        posts.append(record["id"])
+    return len(posts)
 
 
-def outer(): #??????????
-    c=0
-    def inner():
-        nonlocal c
-        c+=1
-        print(c)
-    return inner()
+def main():
+    url = "https://jsonplaceholder.typicode.com/posts"
+    data = get_res(url)
+    data_final = process(data)
+    global count
+    num_process = count
 
-# outer()
+    def inner(n):
+        nonlocal num_process
+        num_process += n
+
+    inner(data_final)
+    record_process = num_process
+    print(f"record number is: {record_process}")
 
 
-
-# print(show())
-# with open('data.json','w') as handle:
-#     json.dump(datam,handle)
-# with open('data.json','r') as p:
-#     print(json.load([0]))
-a=get_res('https://jsonplaceholder.typicode.com/posts')
-b=process(a)
-
+if __name__ == "__main__":
+    main()
