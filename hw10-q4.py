@@ -13,11 +13,9 @@ def connect_url(url: str):
 
 
 def wrt_json(response):
-    var = json.loads(response.text)
-
-# print(var)
+    data = response.json()
     with open('film.json', 'w') as handle:
-        json.dump(var, handle)
+        json.dump(data, handle)
 
 
 def read_data(file: json):
@@ -27,18 +25,19 @@ def read_data(file: json):
         print(item.get('Title')+'\t'+item.get('Year'))
         print()
 
+
 def post():
-    name=input('enter film\'s name')
-    r=requests.post(url,json{'Tittle':f'{name}'})
-    r.json()
+    url = 'https://my-json-server.typicode.com/horizon-code-academy/fake-movies-api/movies'
+    data = {"Title": "About Eli", "Year": "1992", "Runtime": "120 min"}
+    response = requests.post(url=url, data=data)
+    if response.status_code == 200:
+        print('POST request successful!')
+    else:
+        print('Unsuccessful Error', response.status_code)
 
-def get_input():
-
-# for reccord in response.json():
-#     print(reccord['name'])
 
 a = connect_url(
     'https://my-json-server.typicode.com/horizon-code-academy/fake-movies-api/movies')
-print(a)
 b = wrt_json(a)
 c = read_data('film')
+post()
