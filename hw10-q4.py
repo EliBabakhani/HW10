@@ -28,9 +28,10 @@ def read_data(file: json):
 
 def post():
     url = 'https://my-json-server.typicode.com/horizon-code-academy/fake-movies-api/movies'
-    data = {"Title": "About Eli", "Year": "1992", "Runtime": "120 min"}
-    response = requests.post(url=url, data=data)
-    if response.status_code == 200:
+    data = {"id": 1, "Title": "About Eli",
+            "Year": "1992", "Runtime": "120 min"}
+    response = requests.post(url=url, json=data)
+    if response.status_code == 201:
         print('POST request successful!')
     else:
         print('Unsuccessful Error', response.status_code)
