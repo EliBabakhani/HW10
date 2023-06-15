@@ -12,6 +12,7 @@ class Indenter:
     def print(self, text):
         print("    " * self.level + text)
 
+
 with Indenter() as indent:
     indent.print('Hi')
     with indent:
